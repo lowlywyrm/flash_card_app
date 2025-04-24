@@ -20,13 +20,17 @@ const FlashCard: React.FC<FlashCardProps> = ({ card }) => {
     >
       <div className="flash-card-inner">
         <div className="flash-card-front">
-          <h3>Question</h3>
-          <p>{card.question}</p>
-          <div className="level-indicator">Level: {card.level}</div>
+          <div className="card-content">
+            <h3>Question</h3>
+            <p>{card.question}</p>
+            <div className="level-indicator">Level: {card.level}</div>
+          </div>
         </div>
         <div className="flash-card-back">
-          <h3>Answer</h3>
-          <p>{card.answer}</p>
+          <div className="card-content">
+            <h3>Answer</h3>
+            <p>{card.answer}</p>
+          </div>
         </div>
       </div>
     </div>
