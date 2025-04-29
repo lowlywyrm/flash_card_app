@@ -8,6 +8,7 @@ export interface FlashCardData {
   level: number;
   category?: string;
   lastReviewed?: Date | null;
+  lastAnsweredCorrectly?: Date | null;
 }
 
 const generateFlashCardId = (question: string, answer: string): string => {
@@ -30,6 +31,5 @@ export const createFlashCard = (
     answer,
     level,
     category,
-    lastReviewed: null,
   };
 };
