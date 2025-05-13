@@ -67,3 +67,5 @@ class FlashCardPriorityQueue {
     return this.queue.length;
   }
 }
+
+export default FlashCardPriorityQueue;

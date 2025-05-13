@@ -8,22 +8,28 @@ interface FlashCardProps {
 
 const FlashCard: React.FC<FlashCardProps> = ({ card }) => {
   const [isFlipped, setIsFlipped] = useState(false);
-
-  const handleClick = () => {
+  const [answer, setAnswer] = useState("");
+  const handleSubmit = (userAnswer: string) => {
+    console.log(userAnswer);
     setIsFlipped(!isFlipped);
   };
 
   return (
-    <div
-      className={`flash-card ${isFlipped ? "flipped" : ""}`}
-      onClick={handleClick}
-    >
+    <div className={`flash-card ${isFlipped ? "flipped" : ""}`}>
       <div className="flash-card-inner">
         <div className="flash-card-front">
           <div className="card-content">
             <h3>Question</h3>
             <p>{card.question}</p>
             <div className="level-indicator">Level: {card.level}</div>
+          </div>
+          <div className="input-area">
+            <input
+              type="text"
+              onChange={(e) => setAnswer(e.target.value)}
+              placeholder="Enter your answer"
+            />
+            <button onClick={() => handleSubmit(answer)}>Submit</button>
           </div>
         </div>
         <div className="flash-card-back">

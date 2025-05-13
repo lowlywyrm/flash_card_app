@@ -1,7 +1,7 @@
 .flash-card {
     perspective: 1000px;
-    width: 500px;
-    height: 300px;
+    width: 50rem;
+    height: 60rem;
     margin: 20px;
     cursor: pointer;
 }
