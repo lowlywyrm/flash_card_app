@@ -7,10 +7,17 @@ function App() {
     "Describe scoping for variables defined with the let keyword in Javascript.";
   const answer =
     "Variables defined with let are only accessible in the block in which they are defined (They are block-scoped).";
-  const flashCard = createFlashCard(question, answer);
+  let flashCard = createFlashCard(question, answer);
   return (
     <>
-      <FlashCard card={flashCard} />
+      <div className="app-container">
+        <div className="flashcard-container">
+          <FlashCard card={flashCard} />
+        </div>
+        <div className="metrics-container">
+          <div className="metrics-item">Metrics here</div>
+        </div>
+      </div>
     </>
   );
 }

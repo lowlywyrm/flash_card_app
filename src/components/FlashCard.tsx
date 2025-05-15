@@ -24,8 +24,7 @@ const FlashCard: React.FC<FlashCardProps> = ({ card }) => {
             <div className="level-indicator">Level: {card.level}</div>
           </div>
           <div className="input-area">
-            <input
-              type="text"
+            <textarea
               onChange={(e) => setAnswer(e.target.value)}
               placeholder="Enter your answer"
             />
