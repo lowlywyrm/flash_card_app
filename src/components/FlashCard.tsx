@@ -9,9 +9,22 @@ interface FlashCardProps {
 const FlashCard: React.FC<FlashCardProps> = ({ card }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [answer, setAnswer] = useState("");
+
   const handleSubmit = (userAnswer: string) => {
     console.log(userAnswer);
     setIsFlipped(!isFlipped);
+  };
+
+  const handleCorrect = () => {
+    console.log("Correct");
+    setIsFlipped(false);
+    setAnswer("");
+  };
+
+  const handleIncorrect = () => {
+    console.log("Incorrect");
+    setIsFlipped(false);
+    setAnswer("");
   };
 
   return (
@@ -35,6 +48,17 @@ const FlashCard: React.FC<FlashCardProps> = ({ card }) => {
           <div className="card-content">
             <h3>Answer</h3>
             <p>{card.answer}</p>
+          </div>
+          <div className="answer-buttons">
+            <button className="correct-button" onClick={handleCorrect}>
+              {"\u2713"}
+            </button>
+            <button className="incorrect-button" onClick={handleIncorrect}>
+              {"\u2717"}
+            </button>
+          </div>
+          <div className="bottom-space">
+            <button>Next</button>
           </div>
         </div>
       </div>

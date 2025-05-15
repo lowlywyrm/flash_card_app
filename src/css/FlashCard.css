@@ -1,9 +1,9 @@
 .flash-card {
+    position: relative;
     perspective: 1000px;
-    width: 90%;
+    width: 100%;
     max-width: 30rem;
     height: 30rem;
-    margin: 20px;
 }
 
 .flash-card-inner {
@@ -102,4 +102,46 @@ p {
     text-align: center;
     max-width: 100%;
     word-wrap: break-word;
+}
+
+.answer-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.correct-button,
+.incorrect-button {
+    width: 4rem;
+    height: 3rem;
+    border-radius: 1rem;
+    border: .1rem solid;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.correct-button {
+    border-color: #AAA;
+    color: #4CAF50;
+}
+
+.incorrect-button {
+    border-color: #AAA;
+    color: #f44336;
+}
+
+.correct-button:hover,
+.incorrect-button:hover {
+    transform: scale(1.05);
+}
+
+.correct-button:active,
+.incorrect-button:active {
+    transform: scale(0.95);
 } 

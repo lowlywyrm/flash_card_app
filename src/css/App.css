@@ -5,27 +5,30 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    gap: 2rem;
+    gap: 1rem;
     padding: 1rem;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .flashcard-container {
     flex: 1;
-    min-width: 30rem;
-    max-width: 50%;
+    min-width: 20rem;
+    max-width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .metrics-container {
     flex: 1;
     min-height: 50%;
     min-width: 20rem;
-    max-width: 30rem;
+    max-width: 90%;
     padding: 1rem;
     background-color: #f8f9fa;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
