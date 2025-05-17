@@ -1,0 +1,64 @@
+{
+  "cards": [
+    {
+      "question": "What is the regex wildcard character?",
+      "answer": "The wildcard character is a dot (.)",
+      "level": "1"
+    },
+    {
+      "question": "What is the regex character representing zero or more occurrences of the preceding character?",
+      "answer": "The asterisk (*)",
+      "level": "1"
+    },
+    {
+      "question": "What is the regex character representing one or more occurrences of the preceding character?",
+      "answer": "The plus sign (+)",
+      "level": "1"
+    },
+    {
+      "question": "What is the regex character representing zero or one occurrence of the preceding character?",
+      "answer": "The question mark (?)",
+      "level": "1"
+    },
+    {
+      "question": "How do you represent a literal period (.) in a regex?",
+      "answer": "\\.",
+      "level": "1"
+    },
+    {
+      "question": "How do you represent a literal backslash (\\) in a regex?",
+      "answer": "\\\\",
+      "level": "1"
+    },
+    {
+      "question": "What placeholder signifies the beginning of a string?",
+      "answer": "^",
+      "level": "1"
+    },
+    {
+      "question": "What placeholder signifies the end of a string?",
+      "answer": "$",
+      "level": "1"
+    },
+    {
+      "question": "How do you represent the characters a through z in a regex?",
+      "answer": "[a-z]",
+      "level": "1"
+    },
+    {
+      "question": "How do you represent any one of the characters in the set a, b, or c in a regex?",
+      "answer": "[abc]",
+      "level": "1"
+    },
+    {
+      "question": "How do you match any set of characters not contained in the range a through d in a regex?",
+      "answer": "[^a-d]",
+      "level": "1"
+    },
+    {
+      "question": "How do you match any set of characters not in the set a, b, or c in a regex?",
+      "answer": "[^abc]",
+      "level": "1"
+    }
+  ]
+}

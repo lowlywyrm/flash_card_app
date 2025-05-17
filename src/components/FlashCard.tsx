@@ -57,9 +57,6 @@ const FlashCard: React.FC<FlashCardProps> = ({ card }) => {
               {"\u2717"}
             </button>
           </div>
-          <div className="bottom-space">
-            <button>Next</button>
-          </div>
         </div>
       </div>
     </div>
