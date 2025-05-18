@@ -1,13 +1,46 @@
 import "./css/App.css";
 import FlashCard from "./components/FlashCard";
-import { createFlashCard } from "./types/FlashCardData";
+import { FlashCardData } from "./types/FlashCardData";
+import { useState, useEffect } from "react";
+import FlashCardPriorityQueue from "./types/FlashCardQueue";
+import { FlashCardDeck } from "./types/FlashCardDeck";
 
 function App() {
-  const question =
-    "Describe scoping for variables defined with the let keyword in Javascript.";
-  const answer =
-    "Variables defined with let are only accessible in the block in which they are defined (They are block-scoped).";
-  let flashCard = createFlashCard(question, answer);
+  const [flashCard, setFlashCard] = useState<FlashCardData | null>(null);
+  const flashCardQueue = new FlashCardPriorityQueue();
+
+  useEffect(() => {
+    if (flashCardQueue.isEmpty()) {
+      import("../sample_data/sample_cards.json").then((module) => {
+        const deck = new FlashCardDeck();
+        module.default.cards.forEach(
+          (card: {
+            question: string;
+            answer: string;
+            category: string;
+            level: number;
+          }) => {
+            deck.addCardFromData(
+              card.question,
+              card.answer,
+              card.category,
+              card.level
+            );
+          }
+        );
+        for (const card of deck.getAllCards()) {
+          flashCardQueue.enqueue(card.id, card.level);
+        }
+        const nextCardId = flashCardQueue.dequeue();
+        if (!nextCardId) {
+          console.error("No card found");
+        } else {
+          setFlashCard(deck.getCard(nextCardId));
+        }
+      });
+    }
+  }, []);
+
   return (
     <>
       <div className="app-container">

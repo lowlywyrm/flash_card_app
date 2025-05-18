@@ -3,7 +3,7 @@ import { FlashCardData } from "../types/FlashCardData";
 import "../css/FlashCard.css";
 
 interface FlashCardProps {
-  card: FlashCardData;
+  card: FlashCardData | null;
 }
 
 const FlashCard: React.FC<FlashCardProps> = ({ card }) => {
@@ -26,6 +26,10 @@ const FlashCard: React.FC<FlashCardProps> = ({ card }) => {
     setIsFlipped(false);
     setAnswer("");
   };
+
+  if (!card) {
+    return <div>No card found</div>;
+  }
 
   return (
     <div className={`flash-card ${isFlipped ? "flipped" : ""}`}>
