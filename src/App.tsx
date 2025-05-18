@@ -8,11 +8,14 @@ import { FlashCardDeck } from "./types/FlashCardDeck";
 function App() {
   const [flashCard, setFlashCard] = useState<FlashCardData | null>(null);
   const flashCardQueue = new FlashCardPriorityQueue();
+  const deck = new FlashCardDeck();
 
   useEffect(() => {
-    if (flashCardQueue.isEmpty()) {
+    // Clear queue and reload cards if deck is empty
+    if (deck.isEmpty()) {
+      flashCardQueue.clear();
       import("../sample_data/sample_cards.json").then((module) => {
-        const deck = new FlashCardDeck();
+        console.log("Loading sample cards...");
         module.default.cards.forEach(
           (card: {
             question: string;
@@ -28,18 +31,32 @@ function App() {
             );
           }
         );
-        for (const card of deck.getAllCards()) {
-          flashCardQueue.enqueue(card.id, card.level);
-        }
-        const nextCardId = flashCardQueue.dequeue();
-        if (!nextCardId) {
-          console.error("No card found");
-        } else {
-          setFlashCard(deck.getCard(nextCardId));
-        }
+        initializeQueue();
       });
+    } else {
+      // If deck has cards, just initialize the queue
+      initializeQueue();
     }
   }, []);
+
+  const initializeQueue = () => {
+    console.log("Initializing queue with deck size:", deck.getCardCount());
+    for (const card of deck.getAllCards()) {
+      console.log("Enqueueing card:", { id: card.id, level: card.level });
+      flashCardQueue.enqueue(card.id, card.level);
+    }
+    console.log("Queue size before dequeue:", flashCardQueue.getSize());
+    const nextCardId = flashCardQueue.dequeue();
+    console.log("Queue size after dequeue:", flashCardQueue.getSize());
+    console.log("Dequeued card ID:", nextCardId, "Type:", typeof nextCardId);
+    if (!nextCardId) {
+      console.error("No card found - Queue might be empty");
+    } else {
+      const card = deck.getCard(nextCardId);
+      console.log("Retrieved card:", card);
+      setFlashCard(card);
+    }
+  };
 
   return (
     <>
