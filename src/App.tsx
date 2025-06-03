@@ -1,9 +1,9 @@
 import "./css/App.css";
 import FlashCard from "./components/FlashCard";
-import { FlashCardData } from "./types/FlashCardData";
+import { FlashCardData } from "./models/FlashCardData";
 import { useState, useEffect } from "react";
-import FlashCardPriorityQueue from "./types/FlashCardQueue";
-import { FlashCardDeck } from "./types/FlashCardDeck";
+import FlashCardPriorityQueue from "./models/FlashCardQueue";
+import { FlashCardDeck } from "./models/FlashCardDeck";
 
 function App() {
   const deckLabelSet = new Set(

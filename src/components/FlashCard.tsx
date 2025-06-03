@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlashCardData } from "../types/FlashCardData";
+import { FlashCardData } from "../models/FlashCardData";
 import "../css/FlashCard.css";
 
 interface FlashCardProps {
