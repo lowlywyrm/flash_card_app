@@ -2,18 +2,26 @@ import { createFlashCard, FlashCardData } from "./FlashCardData";
 
 export class FlashCardDeck {
   private cards: Map<string, FlashCardData>;
-  private readonly storageKey = "flashcard-deck";
+  private readonly storageKeyBase = "flashcard-deck";
+  private readonly storageKey: string;
+  private deckLabel: string;
 
-  constructor() {
+  constructor(deckLabel: string) {
+    this.storageKey = `${this.storageKeyBase}-${deckLabel}`;
     const savedCards = localStorage.getItem(this.storageKey);
     this.cards = savedCards
       ? new Map(Object.entries(JSON.parse(savedCards)))
       : new Map();
+    this.deckLabel = deckLabel;
   }
 
   private save(): void {
     const cardsObject = Object.fromEntries(this.cards);
     localStorage.setItem(this.storageKey, JSON.stringify(cardsObject));
+  }
+
+  public getDeckLabel(): string {
+    return this.deckLabel;
   }
 
   addCardFromData(

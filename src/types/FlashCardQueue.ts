@@ -5,21 +5,26 @@ interface PriorityQueueItem {
 
 class FlashCardPriorityQueue {
   private queue: PriorityQueueItem[];
-  private readonly storageKey = "flashcard-queue";
+  private readonly storageKeyBase = "flashcard-queue";
+  private readonly storageKey: string;
+  private deckLabel: string;
 
-  constructor() {
+  constructor(level: string) {
+    this.storageKey = `${this.storageKeyBase}-${level}`;
     const savedQueue = localStorage.getItem(this.storageKey);
     this.queue = savedQueue ? JSON.parse(savedQueue) : [];
+    this.deckLabel = level;
   }
 
   private save(): void {
     localStorage.setItem(this.storageKey, JSON.stringify(this.queue));
   }
 
+  // Add item to queue, higher priority towards end of queue
   enqueue(id: string, priority: number): void {
     const newItem = { id, priority };
 
-    // Find position to insert based on priority (higher priority first)
+    // Finding index for item insert, higher priority towards end of queue
     const insertIndex = this.queue.findIndex(
       (item) => item.priority < priority
     );
@@ -33,9 +38,10 @@ class FlashCardPriorityQueue {
     this.save();
   }
 
+  // Remove item with highest priority from end of queue
   dequeue(): string | null {
     if (this.queue.length === 0) return null;
-    const item = this.queue.shift();
+    const item = this.queue.pop(); // Use pop instead of shift
     this.save();
     return item?.id ?? null;
   }
@@ -48,10 +54,11 @@ class FlashCardPriorityQueue {
   updatePriority(id: string, newPriority: number): void {
     this.remove(id);
     this.enqueue(id, newPriority);
+    this.save();
   }
 
   peek(): string | null {
-    return this.queue.length > 0 ? this.queue[0].id : null;
+    return this.queue.length > 0 ? this.queue[this.queue.length - 1].id : null; // Look at last item
   }
 
   clear(): void {
@@ -65,6 +72,10 @@ class FlashCardPriorityQueue {
 
   getSize(): number {
     return this.queue.length;
+  }
+
+  getDeckLabel(): string {
+    return this.deckLabel;
   }
 }
 
