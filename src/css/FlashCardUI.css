@@ -1,0 +1,34 @@
+.flashcard-ui {
+  position: relative;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  padding: 10px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 60px;
+} 

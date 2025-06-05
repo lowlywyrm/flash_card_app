@@ -9,11 +9,11 @@ class FlashCardPriorityQueue {
   private readonly storageKey: string;
   private deckLabel: string;
 
-  constructor(level: string) {
-    this.storageKey = `${this.storageKeyBase}-${level}`;
+  constructor(deckLabel: string) {
+    this.storageKey = `${this.storageKeyBase}-${deckLabel}`;
     const savedQueue = localStorage.getItem(this.storageKey);
     this.queue = savedQueue ? JSON.parse(savedQueue) : [];
-    this.deckLabel = level;
+    this.deckLabel = deckLabel;
   }
 
   private save(): void {
