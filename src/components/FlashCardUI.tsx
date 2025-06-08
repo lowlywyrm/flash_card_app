@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import FlashCard from "./FlashCard";
 import { FlashCardData } from "../models/FlashCardData";
 import { FlashCardDeck } from "../models/FlashCardDeck";
@@ -6,19 +6,17 @@ import FlashCardPriorityQueue from "../models/FlashCardQueue";
 import { useState, useEffect } from "react";
 import "../css/FlashCardUI.css";
 
-interface FlashCardUIProps {
-  deckLabel: string;
-}
-
-const FlashCardUI: React.FC<FlashCardUIProps> = ({ deckLabel }) => {
+const FlashCardUI: React.FC = () => {
   const navigate = useNavigate();
+  const { deckLabel } = useParams();
   const [flashCard, setFlashCard] = useState<FlashCardData | null>(null);
-  const [deck] = useState<FlashCardDeck>(new FlashCardDeck(deckLabel));
+  const [deck] = useState<FlashCardDeck>(new FlashCardDeck(deckLabel!));
   const [flashCardQueue] = useState<FlashCardPriorityQueue>(
-    new FlashCardPriorityQueue(deckLabel)
+    new FlashCardPriorityQueue(deckLabel!)
   );
 
   const initializeQueue = () => {
+    console.log("FlashCardUI:", deckLabel);
     console.log("Initializing queue with deck size:", deck.getCardCount());
     for (const card of deck.getAllCards()) {
       console.log("Enqueueing card:", { id: card.id, level: card.level });
@@ -65,15 +63,15 @@ const FlashCardUI: React.FC<FlashCardUIProps> = ({ deckLabel }) => {
 
   return (
     <div className="flashcard-ui">
-      <button
-        className="back-button"
-        onClick={() => navigate("/")}
-        aria-label="Back to deck selection"
-      >
-        ←
-      </button>
       <div className="app-container">
         <div className="flashcard-container">
+          <button
+            className="back-button"
+            onClick={() => navigate("/")}
+            aria-label="Back to deck selection"
+          >
+            ←
+          </button>
           <FlashCard card={flashCard} />
         </div>
         <div className="metrics-container">

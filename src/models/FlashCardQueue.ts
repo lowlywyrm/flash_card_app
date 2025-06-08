@@ -10,6 +10,7 @@ class FlashCardPriorityQueue {
   private deckLabel: string;
 
   constructor(deckLabel: string) {
+    console.log("FlashCardPriorityQueue: Creating queue for deck:", deckLabel);
     this.storageKey = `${this.storageKeyBase}-${deckLabel}`;
     const savedQueue = localStorage.getItem(this.storageKey);
     this.queue = savedQueue ? JSON.parse(savedQueue) : [];

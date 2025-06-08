@@ -1,5 +1,5 @@
 import "./css/App.css";
-import { Routes, Route, useNavigate, useParams } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import SplashScreen from "./components/SplashScreen";
 import FlashCardUI from "./components/FlashCardUI";
 
@@ -7,6 +7,7 @@ function App() {
   const navigate = useNavigate();
 
   const handleDeckSelect = (deckLabel: string) => {
+    console.log("Deck selected:", deckLabel);
     navigate(`/deck/${deckLabel}`);
   };
 
@@ -16,10 +17,7 @@ function App() {
         path="/"
         element={<SplashScreen onDeckSelect={handleDeckSelect} />}
       />
-      <Route
-        path="/deck/:deckLabel"
-        element={<FlashCardUI deckLabel={useParams().deckLabel!} />}
-      />
+      <Route path="/deck/:deckLabel" element={<FlashCardUI />} />
     </Routes>
   );
 }
