@@ -9,7 +9,8 @@ import "../css/FlashCardUI.css";
 const FlashCardUI: React.FC = () => {
   const navigate = useNavigate();
   const { deckLabel } = useParams();
-  const [flashCard, setFlashCard] = useState<FlashCardData | null>(null);
+  const [flashCardComponent, setFlashCardComponent] =
+    useState<FlashCardData | null>(null);
   const [deck] = useState<FlashCardDeck>(new FlashCardDeck(deckLabel!));
   const [flashCardQueue] = useState<FlashCardPriorityQueue>(
     new FlashCardPriorityQueue(deckLabel!)
@@ -18,12 +19,17 @@ const FlashCardUI: React.FC = () => {
   const initializeQueue = () => {
     console.log("FlashCardUI:", deckLabel);
     console.log("Initializing queue with deck size:", deck.getCardCount());
-    for (const card of deck.getAllCards()) {
-      console.log("Enqueueing card:", { id: card.id, level: card.level });
-      flashCardQueue.enqueue(card.id, card.level);
+
+    // Only initialize queue if it's empty
+    if (flashCardQueue.isEmpty()) {
+      for (const card of deck.getAllCards()) {
+        console.log("Enqueueing card:", { id: card.id, level: card.level });
+        flashCardQueue.enqueue(card.id, card.level);
+      }
     }
+
     console.log("Queue size before dequeue:", flashCardQueue.getSize());
-    const nextCardId = flashCardQueue.dequeue();
+    const nextCardId = flashCardQueue.peek();
     console.log("Queue size after dequeue:", flashCardQueue.getSize());
     console.log("Dequeued card ID:", nextCardId, "Type:", typeof nextCardId);
     if (!nextCardId) {
@@ -31,7 +37,7 @@ const FlashCardUI: React.FC = () => {
     } else {
       const card = deck.getCard(nextCardId);
       console.log("Retrieved card:", card);
-      setFlashCard(card);
+      setFlashCardComponent(card);
     }
   };
 
@@ -72,7 +78,7 @@ const FlashCardUI: React.FC = () => {
           >
             ←
           </button>
-          <FlashCard card={flashCard} />
+          <FlashCard card={flashCardComponent} />
         </div>
         <div className="metrics-container">
           <div className="metrics-item">Metrics here</div>
