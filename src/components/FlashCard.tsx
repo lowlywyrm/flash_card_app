@@ -4,9 +4,10 @@ import "../css/FlashCard.css";
 
 interface FlashCardProps {
   card: FlashCardData | null;
+  onAnswer: (isCorrect: boolean) => void;
 }
 
-const FlashCard: React.FC<FlashCardProps> = ({ card }) => {
+const FlashCard: React.FC<FlashCardProps> = ({ card, onAnswer }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [submittedAnswer, setSubmittedAnswer] = useState("");
 
@@ -30,12 +31,21 @@ const FlashCard: React.FC<FlashCardProps> = ({ card }) => {
     input.value = "";
   };
 
+  const handleTransitionEnd = () => {
+    if (!isFlipped) {
+      onAnswer(true); // We'll handle the actual correctness in FlashCardUI
+    }
+  };
+
   if (!card) {
     return <div>No card found</div>;
   }
 
   return (
-    <div className={`flash-card ${isFlipped ? "flipped" : ""}`}>
+    <div
+      className={`flash-card ${isFlipped ? "flipped" : ""}`}
+      onTransitionEnd={handleTransitionEnd}
+    >
       <div className="flash-card-inner">
         <div className="flash-card-front">
           <div className="card-content">

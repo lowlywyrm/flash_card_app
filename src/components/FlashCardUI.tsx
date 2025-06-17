@@ -15,6 +15,7 @@ const FlashCardUI: React.FC = () => {
   const [flashCardQueue] = useState<FlashCardPriorityQueue>(
     new FlashCardPriorityQueue(deckLabel!)
   );
+  const [pendingAnswer, setPendingAnswer] = useState<boolean | null>(null);
 
   const initializeQueue = () => {
     console.log("FlashCardUI:", deckLabel);
@@ -39,6 +40,33 @@ const FlashCardUI: React.FC = () => {
       console.log("Retrieved card:", card);
       setFlashCardComponent(card);
     }
+  };
+
+  const handleAnswer = (isCorrect: boolean) => {
+    setPendingAnswer(isCorrect);
+  };
+
+  const processAnswer = () => {
+    if (pendingAnswer === null) return;
+
+    // Dequeue the current card
+    const currentCardId = flashCardQueue.dequeue();
+    if (!currentCardId) {
+      console.error("No card found in queue");
+      return;
+    }
+
+    // Get the next card
+    const nextCardId = flashCardQueue.peek();
+    if (!nextCardId) {
+      console.error("No more cards in queue");
+      setFlashCardComponent(null);
+    } else {
+      const nextCard = deck.getCard(nextCardId);
+      setFlashCardComponent(nextCard);
+    }
+
+    setPendingAnswer(null);
   };
 
   useEffect(() => {
@@ -67,6 +95,12 @@ const FlashCardUI: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (pendingAnswer !== null) {
+      processAnswer();
+    }
+  }, [pendingAnswer]);
+
   return (
     <div className="flashcard-ui">
       <div className="app-container">
@@ -78,7 +112,7 @@ const FlashCardUI: React.FC = () => {
           >
             ←
           </button>
-          <FlashCard card={flashCardComponent} />
+          <FlashCard card={flashCardComponent} onAnswer={handleAnswer} />
         </div>
         <div className="metrics-container">
           <div className="metrics-item">Metrics here</div>
