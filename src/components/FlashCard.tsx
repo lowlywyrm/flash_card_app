@@ -3,11 +3,11 @@ import { FlashCardData } from "../models/FlashCardData";
 import "../css/FlashCard.css";
 
 interface FlashCardProps {
-  card: FlashCardData | null;
+  cardData: FlashCardData | null;
   onAnswer: (isCorrect: boolean) => void;
 }
 
-const FlashCard: React.FC<FlashCardProps> = ({ card, onAnswer }) => {
+const FlashCard: React.FC<FlashCardProps> = ({ cardData: card, onAnswer }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [submittedAnswer, setSubmittedAnswer] = useState("");
 

@@ -112,7 +112,7 @@ const FlashCardUI: React.FC = () => {
           >
             ←
           </button>
-          <FlashCard card={flashCardComponent} onAnswer={handleAnswer} />
+          <FlashCard cardData={flashCardComponent} onAnswer={handleAnswer} />
         </div>
         <div className="metrics-container">
           <div className="metrics-item">Metrics here</div>
