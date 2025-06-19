@@ -4,27 +4,29 @@
   padding: 20px;
 }
 
-.back-button {
+.flashcard-header-button {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  background: none;
-  border: none;
-  font-size: 24px;
+  top: 1rem;
+  background: #f0f0f0;
+  border: 1px solid #000;
+  font-size: 1.5rem;
   cursor: pointer;
   color: #888;
-  padding: 10px;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 3rem;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s;
 }
 
-.back-button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+.back-button {
+  left: 1rem;
+}
+
+.add-button {
+  left: 4rem;
 }
 
 .app-container {

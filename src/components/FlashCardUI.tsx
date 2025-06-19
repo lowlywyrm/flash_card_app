@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import FlashCard from "./FlashCard";
+import AddCardUI from "./AddCardUI";
 import { FlashCardData } from "../models/FlashCardData";
 import { FlashCardDeck } from "../models/FlashCardDeck";
 import FlashCardPriorityQueue from "../models/FlashCardQueue";
@@ -16,13 +17,14 @@ const FlashCardUI: React.FC = () => {
     new FlashCardPriorityQueue(deckLabel!)
   );
   const [pendingAnswer, setPendingAnswer] = useState<boolean | null>(null);
+  const [showAddCard, setShowAddCard] = useState(false);
 
-  const initializeQueue = () => {
+  const initializeQueue = (reinitialize?: boolean) => {
     console.log("FlashCardUI:", deckLabel);
     console.log("Initializing queue with deck size:", deck.getCardCount());
 
     // Only initialize queue if it's empty
-    if (flashCardQueue.isEmpty()) {
+    if (flashCardQueue.isEmpty() || reinitialize) {
       for (const card of deck.getAllCards()) {
         console.log("Enqueueing card:", { id: card.id, level: card.level });
         flashCardQueue.enqueue(card.id, card.level);
@@ -44,6 +46,17 @@ const FlashCardUI: React.FC = () => {
 
   const handleAnswer = (isCorrect: boolean) => {
     setPendingAnswer(isCorrect);
+  };
+
+  const handleAddCard = (
+    question: string,
+    answer: string,
+    category: string,
+    level: number
+  ) => {
+    deck.addCardFromData(question, answer, category, level);
+    // Re-initialize queue to include the new card
+    initializeQueue(true);
   };
 
   const processAnswer = () => {
@@ -105,19 +118,34 @@ const FlashCardUI: React.FC = () => {
     <div className="flashcard-ui">
       <div className="app-container">
         <div className="flashcard-container">
-          <button
-            className="back-button"
-            onClick={() => navigate("/")}
-            aria-label="Back to deck selection"
-          >
-            ←
-          </button>
+          <div className="flashcard-header">
+            <button
+              className="flashcard-header-button back-button"
+              onClick={() => navigate("/")}
+              aria-label="Back to deck selection"
+            >
+              ←
+            </button>
+            <button
+              className="flashcard-header-button add-button"
+              onClick={() => setShowAddCard(true)}
+              aria-label="Add card to deck"
+            >
+              +
+            </button>
+          </div>
           <FlashCard cardData={flashCardComponent} onAnswer={handleAnswer} />
         </div>
         <div className="metrics-container">
           <div className="metrics-item">Metrics here</div>
         </div>
       </div>
+      {showAddCard && (
+        <AddCardUI
+          onClose={() => setShowAddCard(false)}
+          onAddCard={handleAddCard}
+        />
+      )}
     </div>
   );
 };
