@@ -6,9 +6,9 @@ import FlashCardUI from "./components/FlashCardUI";
 function App() {
   const navigate = useNavigate();
 
-  const handleDeckSelect = (deckLabel: string) => {
-    console.log("Deck selected:", deckLabel);
-    navigate(`/deck/${deckLabel}`);
+  const handleDeckSelect = (deckName: string) => {
+    console.log("Deck selected:", deckName);
+    navigate(`/deck/${deckName}`);
   };
 
   return (
@@ -17,7 +17,7 @@ function App() {
         path="/"
         element={<SplashScreen onDeckSelect={handleDeckSelect} />}
       />
-      <Route path="/deck/:deckLabel" element={<FlashCardUI />} />
+      <Route path="/deck/:deckName" element={<FlashCardUI />} />
     </Routes>
   );
 }

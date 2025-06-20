@@ -2,19 +2,19 @@ import { useState, useEffect } from "react";
 import "../css/SplashScreen.css";
 
 interface SplashScreenProps {
-  onDeckSelect: (deckLabel: string) => void;
+  onDeckSelect: (deckName: string) => void;
 }
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onDeckSelect }) => {
-  const [deckLabels, setDeckLabels] = useState<string[]>([]);
+  const [deckNames, setDeckNames] = useState<string[]>([]);
   const [selectedDeck, setSelectedDeck] = useState<string>("default");
 
   useEffect(() => {
     // Load deck labels from localStorage
-    const storedDeckLabels = Object.keys(
-      JSON.parse(localStorage.getItem("deckLabelSet") || "{}")
+    const storedDeckNames = Object.keys(
+      JSON.parse(localStorage.getItem("deckNameSet") || "{}")
     );
-    setDeckLabels(storedDeckLabels.length > 0 ? storedDeckLabels : ["default"]);
+    setDeckNames(storedDeckNames.length > 0 ? storedDeckNames : ["default"]);
   }, []);
 
   const handleSelect = () => {
@@ -31,9 +31,9 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onDeckSelect }) => {
           onChange={(e) => setSelectedDeck(e.target.value)}
           className="deck-select"
         >
-          {deckLabels.map((label) => (
-            <option key={label} value={label}>
-              {label}
+          {deckNames.map((name) => (
+            <option key={name} value={name}>
+              {name}
             </option>
           ))}
         </select>

@@ -4,15 +4,15 @@ export class FlashCardDeck {
   private cards: Map<string, FlashCardData>;
   private readonly storageKeyBase = "flashcard-deck";
   private readonly storageKey: string;
-  private deckLabel: string;
+  private deckName: string;
 
-  constructor(deckLabel: string) {
-    this.storageKey = `${this.storageKeyBase}-${deckLabel}`;
+  constructor(deckName: string) {
+    this.storageKey = `${this.storageKeyBase}-${deckName}`;
     const savedCards = localStorage.getItem(this.storageKey);
     this.cards = savedCards
       ? new Map(Object.entries(JSON.parse(savedCards)))
       : new Map();
-    this.deckLabel = deckLabel;
+    this.deckName = deckName;
   }
 
   private save(): void {
@@ -20,8 +20,8 @@ export class FlashCardDeck {
     localStorage.setItem(this.storageKey, JSON.stringify(cardsObject));
   }
 
-  public getDeckLabel(): string {
-    return this.deckLabel;
+  public getDeckName(): string {
+    return this.deckName;
   }
 
   addCardFromData(

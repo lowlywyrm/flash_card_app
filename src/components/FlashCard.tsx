@@ -8,6 +8,11 @@ interface FlashCardProps {
 }
 
 const FlashCard: React.FC<FlashCardProps> = ({ cardData: card, onAnswer }) => {
+  if (!card) {
+    return <div className="no-card-message">Loading cards...</div>;
+  }
+
+  console.log("FlashCard:", card);
   const [isFlipped, setIsFlipped] = useState(false);
   const [submittedAnswer, setSubmittedAnswer] = useState("");
 
@@ -36,10 +41,6 @@ const FlashCard: React.FC<FlashCardProps> = ({ cardData: card, onAnswer }) => {
       onAnswer(true); // We'll handle the actual correctness in FlashCardUI
     }
   };
-
-  if (!card) {
-    return <div>No card found</div>;
-  }
 
   return (
     <div

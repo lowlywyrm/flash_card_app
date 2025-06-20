@@ -9,18 +9,18 @@ import "../css/FlashCardUI.css";
 
 const FlashCardUI: React.FC = () => {
   const navigate = useNavigate();
-  const { deckLabel } = useParams();
+  const { deckName } = useParams();
   const [flashCardComponent, setFlashCardComponent] =
     useState<FlashCardData | null>(null);
-  const [deck] = useState<FlashCardDeck>(new FlashCardDeck(deckLabel!));
+  const [deck] = useState<FlashCardDeck>(() => new FlashCardDeck(deckName!));
   const [flashCardQueue] = useState<FlashCardPriorityQueue>(
-    new FlashCardPriorityQueue(deckLabel!)
+    () => new FlashCardPriorityQueue(deckName!)
   );
   const [pendingAnswer, setPendingAnswer] = useState<boolean | null>(null);
   const [showAddCard, setShowAddCard] = useState(false);
 
   const initializeQueue = (reinitialize?: boolean) => {
-    console.log("FlashCardUI:", deckLabel);
+    console.log("FlashCardUI:", deckName);
     console.log("Initializing queue with deck size:", deck.getCardCount());
 
     // Only initialize queue if it's empty

@@ -7,14 +7,14 @@ class FlashCardPriorityQueue {
   private queue: PriorityQueueItem[];
   private readonly storageKeyBase = "flashcard-queue";
   private readonly storageKey: string;
-  private deckLabel: string;
+  private deckName: string;
 
-  constructor(deckLabel: string) {
-    console.log("FlashCardPriorityQueue: Creating queue for deck:", deckLabel);
-    this.storageKey = `${this.storageKeyBase}-${deckLabel}`;
+  constructor(deckName: string) {
+    console.log("FlashCardPriorityQueue: Creating queue for deck:", deckName);
+    this.storageKey = `${this.storageKeyBase}-${deckName}`;
     const savedQueue = localStorage.getItem(this.storageKey);
     this.queue = savedQueue ? JSON.parse(savedQueue) : [];
-    this.deckLabel = deckLabel;
+    this.deckName = deckName;
   }
 
   private save(): void {
@@ -75,8 +75,8 @@ class FlashCardPriorityQueue {
     return this.queue.length;
   }
 
-  getDeckLabel(): string {
-    return this.deckLabel;
+  getDeckName(): string {
+    return this.deckName;
   }
 }
 
