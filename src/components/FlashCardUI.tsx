@@ -25,6 +25,7 @@ const FlashCardUI: React.FC = () => {
 
     // Only initialize queue if it's empty
     if (flashCardQueue.isEmpty() || reinitialize) {
+      flashCardQueue.clear();
       for (const card of deck.getAllCards()) {
         console.log("Enqueueing card:", { id: card.id, level: card.level });
         flashCardQueue.enqueue(card.id, card.level);
@@ -132,6 +133,13 @@ const FlashCardUI: React.FC = () => {
               aria-label="Add card to deck"
             >
               +
+            </button>
+            <button
+              className="flashcard-header-button refresh-button"
+              onClick={() => initializeQueue(true)}
+              aria-label="Refresh deck"
+            >
+              ↻
             </button>
           </div>
           <FlashCard cardData={flashCardComponent} onAnswer={handleAnswer} />
